@@ -1,0 +1,27 @@
+{
+  "name": "bookstoreapi_poc_ts",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breno-aredes/BookStoreApi_POC_Ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/breno-aredes/BookStoreApi_POC_Ts/issues"
+  },
+  "homepage": "https://github.com/breno-aredes/BookStoreApi_POC_Ts#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  },
+  "description": ""
+}
