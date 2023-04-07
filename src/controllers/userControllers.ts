@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "protocols/type.js";
+import { User } from "protocols/user.js";
 import userServices from "services/userServices.js";
 
 async function signup(req: Request, res: Response, next: NextFunction) {
@@ -8,11 +8,21 @@ async function signup(req: Request, res: Response, next: NextFunction) {
     await userServices.signup(user);
     return res.send(201);
   } catch (error) {
-    console.log(error);
+    next(error);
+  }
+}
+
+async function signin(req: Request, res: Response, next: NextFunction) {
+  const { email, password } = req.body as User;
+
+  try {
+    await userServices.signin({ email, password });
+  } catch (error) {
     next(error);
   }
 }
 
 export default {
   signup,
+  signin,
 };

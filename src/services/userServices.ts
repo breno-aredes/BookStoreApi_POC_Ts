@@ -1,7 +1,8 @@
 import userRepository from "repositories/userRepository.js";
 import errors from "../errors/index.js";
-import { User } from "protocols/type.js";
+import { User } from "protocols/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 async function signup(user: User) {
   const { name, email, password } = user;
@@ -13,4 +14,24 @@ async function signup(user: User) {
   await userRepository.signup(name, email, hashPassword);
 }
 
-export default { signup };
+async function signin(userData: User) {
+  const { email, password } = userData;
+
+  const {
+    rowCount,
+    rows: [user],
+  } = await userRepository.findByEmail(email);
+
+  if (rowCount) throw errors.invalidCredentialsError();
+
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) throw errors.invalidCredentialsError();
+
+  const token = jwt.sign({ userId: user.id }, process.env.SECRET_JWT, {
+    expiresIn: "1h",
+  });
+
+  return token;
+}
+
+export default { signup, signin };
