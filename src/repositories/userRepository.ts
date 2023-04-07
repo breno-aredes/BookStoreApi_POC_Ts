@@ -19,7 +19,17 @@ async function signup(name: string, email: string, password: string) {
   );
 }
 
+async function findById(userId: number) {
+  return await db.query(
+    `    
+        SELECT * FROM users WHERE id=$1
+      `,
+    [userId]
+  );
+}
+
 export default {
   findByEmail,
   signup,
+  findById,
 };
