@@ -1,6 +1,6 @@
-import userRepository from "repositories/userRepository.js";
-import errors from "../errors/index.js";
-import { User } from "protocols/user.js";
+import userRepository from "repositories/userRepository";
+import errors from "../errors/index";
+import { User } from "protocols/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -8,6 +8,7 @@ async function signup(user: User) {
   const { name, email, password } = user;
 
   const { rowCount } = await userRepository.findByEmail(email);
+
   if (rowCount) throw errors.duplicatedEmailError(email);
 
   const hashPassword = await bcrypt.hash(password, 10);

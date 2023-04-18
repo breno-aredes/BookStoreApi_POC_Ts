@@ -1,4 +1,4 @@
-import db from "config/database.js";
+import db from "config/database";
 
 async function findByEmail(email: string) {
   return await db.query(

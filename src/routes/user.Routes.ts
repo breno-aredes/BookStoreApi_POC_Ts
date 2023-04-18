@@ -10,6 +10,6 @@ userRouter.post(
   validateSchema(signupSchema),
   userControllers.signup
 );
-userRouter.post("/signup", userControllers.signin);
+userRouter.post("/signin", userControllers.signin);
 
 export default userRouter;

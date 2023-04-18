@@ -1,5 +1,5 @@
 import errors from "errors";
-import bookRepository from "repositories/bookRepository.js";
+import bookRepository from "repositories/bookRepository";
 
 async function createBook(name: string, author: string, userId: number) {
   const {
