@@ -1,31 +1,25 @@
 import db from "config/database";
 
 async function findByEmail(email: string) {
-  return await db.query(
-    `    
-        SELECT * FROM users WHERE email=$1
-      `,
-    [email]
-  );
+  return db.users.findUnique({
+    where: { email },
+  });
 }
 
 async function signup(name: string, email: string, password: string) {
-  await db.query(
-    `
-            INSERT INTO users (name, email, password)
-            VALUES ($1, $2, $3)
-        `,
-    [name, email, password]
-  );
+  return db.users.create({
+    data: {
+      name,
+      email,
+      password,
+    },
+  });
 }
 
 async function findById(userId: number) {
-  return await db.query(
-    `    
-        SELECT * FROM users WHERE id=$1
-      `,
-    [userId]
-  );
+  return db.users.findUnique({
+    where: { id: userId },
+  });
 }
 
 export default {

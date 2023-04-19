@@ -10,7 +10,7 @@ server.use(cors());
 server.use(routes);
 server.use(handleApplicationErrors);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 server.listen(port, () => {
   console.log(`rodou file na` + port);
 });

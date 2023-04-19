@@ -21,9 +21,7 @@ export default async function authvalidation(
   const { userId } = jwt.verify(token, process.env.SECRET_JWT) as JwtPayload;
 
   try {
-    const {
-      rows: [user],
-    } = await userRepository.findById(userId);
+    const user = await userRepository.findById(userId);
 
     if (!user) throw errors.unauthorizedError;
 

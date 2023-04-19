@@ -7,9 +7,11 @@ import jwt from "jsonwebtoken";
 async function signup(user: User) {
   const { name, email, password } = user;
 
-  const { rowCount } = await userRepository.findByEmail(email);
+  const usermatch = await userRepository.findByEmail(email);
 
-  if (rowCount) throw errors.duplicatedEmailError(email);
+  console.log(usermatch);
+
+  if (usermatch) throw errors.duplicatedEmailError(email);
 
   const hashPassword = await bcrypt.hash(password, 10);
   await userRepository.signup(name, email, hashPassword);
@@ -18,12 +20,9 @@ async function signup(user: User) {
 async function signin(userData: User) {
   const { email, password } = userData;
 
-  const {
-    rowCount,
-    rows: [user],
-  } = await userRepository.findByEmail(email);
+  const user = await userRepository.findByEmail(email);
 
-  if (rowCount) throw errors.invalidCredentialsError();
+  if (user) throw errors.invalidCredentialsError();
 
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) throw errors.invalidCredentialsError();
